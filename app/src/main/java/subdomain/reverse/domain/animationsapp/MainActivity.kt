@@ -85,8 +85,10 @@ private fun nextSlide() {
                 nextButton.isEnabled = true
 
             }
-        }
+        })
     }
+
+    set.start()
 }
 
 private fun resetViewForAnimation(v:View) {
@@ -130,21 +132,19 @@ private fun randomEnterAnimation(v:View): Animator {
                     ObjectAnimator.ofFloat(v, View.ALPHA, 1f)
                 )
             }
-            else -> {
+        }
+        else -> {
                 v.rotation = -5f
                 v.alpha = 0f
                 AnimatorSet().apply {
                     playTogether(
-                        ObjectAnimator.ofFloat(v, View.ROTATION, 0),
+                        ObjectAnimator.ofFloat(v, View.ROTATION, 0f),
                         ObjectAnimator.ofFloat(v, View.ALPHA, 1f)
                     )
                 }
             }
         }
-
     }
-
-}
 
 private fun randomExitAnimator(v: View): Animator {
     return when (Random.nextInt(5)) {
@@ -166,25 +166,22 @@ private fun randomExitAnimator(v: View): Animator {
         3 -> {
             // Zoom out
             AnimatorSet().apply {
-                playTogether {
-                    ObjectAnimator.ofFloat(v, View.SCALE_X, 0.05),
-                    ObjectAnimator.ofFloat(v, View.SCALE_Y, 0.05),
-                    ObjectAnimator.ofFloat(v, 0)
-                }
-                }
-
+                playTogether(
+                    ObjectAnimator.ofFloat(v, View.SCALE_X, 0.05f),
+                    ObjectAnimator.ofFloat(v, View.SCALE_Y, 0.05f),
+                    ObjectAnimator.ofFloat(v, View.ALPHA, 0f)
+                )
             }
+        }
         else -> {
             val dir = if (Random.nextBoolean()) 1 else -1
             AnimatorSet().apply {
                 playTogether(
-                    ObjectAnimator.ofFloat(v, View.ROTATION, 0),
+                    ObjectAnimator.ofFloat(v, View.ROTATION, 0f),
                     ObjectAnimator.ofFloat(v, View.ALPHA, 1f)
                 )
             }
         }
-
-
     }
 
 }
